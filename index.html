@@ -1,0 +1,1712 @@
+<!--
+
+                            Online HTML Compiler.
+                Code, Compile, Run and Debug HTML program online.
+Write your code in this editor and press "Run" button to execute it.
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Inventory Management System</title>
+
+<style>
+:root {
+    --navy: #172554;
+    --blue: #2563eb;
+    --bg: #f4f7fb;
+    --line: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: #172033;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: var(--blue);
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 22px;
+}
+
+.card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px;
+    margin: 16px 0;
+}
+
+.brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--navy);
+}
+
+.auth-wrap {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+}
+
+.auth-card {
+    width: min(440px, 100%);
+    background: white;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+}
+
+.field {
+    margin: 12px 0;
+}
+
+.field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.field input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.metric {
+    background: white;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.metric .label {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.metric .value {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--navy);
+    margin-top: 7px;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin: 20px 0;
+}
+
+.nav button {
+    background: #e8eefc;
+    color: #1e40af;
+}
+
+.nav button.active {
+    background: var(--navy);
+    color: white;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px 14px;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.search-input {
+    width: min(100%, 420px);
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+th, td {
+    text-align: left;
+    padding: 11px 9px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+}
+
+th {
+    background: #f1f5f9;
+}
+
+.actions {
+    display: flex;
+    gap: 6px;
+}
+
+.actions button {
+    padding: 7px 9px;
+    font-size: 12px;
+}
+
+.secondary {
+    background: #e8eefc;
+    color: #1e40af;
+}
+
+.danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 8px;
+    margin: 8px 0;
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+.alert.good {
+    background: #ecfdf5;
+    color: #065f46;
+}
+
+.alert.bad {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.pill {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.pill.low {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.pill.ok {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.pill.exp {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.feature-grid .card {
+    margin: 0;
+}
+
+.small {
+    font-size: 12px;
+    color: #64748b;
+}
+
+@media(max-width: 850px) {
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 560px) {
+    .container {
+        padding: 13px;
+    }
+
+    .dashboard,
+    .form-grid,
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================================= -->
+<!-- PART 1 – LOGIN SYSTEM -->
+<!-- ================================= -->
+
+<section id="loginPage" class="auth-wrap">
+
+    <div class="auth-card">
+
+        <div class="brand">SmartStock</div>
+
+        <h1 id="authHeading">Welcome Page</h1>
+
+        <p id="authDescription">
+            Login to manage your inventory.
+        </p>
+
+        <form id="authForm">
+
+            <div class="field">
+                <label>Username</label>
+                <input
+                    id="username"
+                    autocomplete="username"
+                    required
+                    placeholder="Enter username">
+            </div>
+
+            <div class="field">
+                <label>Password</label>
+                <input
+                    id="password"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                    placeholder="Enter password">
+            </div>
+
+            <button type="submit" id="authSubmit">
+                Login
+            </button>
+
+        </form>
+
+        <p style="text-align:center">
+            <span id="authSwitchText">New user?</span>
+
+            <button
+                type="button"
+                class="secondary"
+                id="toggleAuth">
+                Create Account
+            </button>
+        </p>
+
+        <p id="authMessage" class="small"></p>
+
+        <p class="small">
+            Demo Login: admin / admin123
+        </p>
+
+    </div>
+
+</section>
+
+
+<div id="application" class="hidden">
+
+<header class="card">
+
+    <div class="brand">SmartStock</div>
+
+    <p>Inventory Management System</p>
+
+    <span id="currentUserLabel"></span>
+
+    <button class="secondary" id="logoutButton">
+        Logout
+    </button>
+
+</header>
+
+<main class="container">
+
+<!-- ================================= -->
+<!-- PART 2 – MAIN MANAGEMENT PAGE -->
+<!-- ================================= -->
+
+<h2>Welcome Dashboard</h2>
+
+<div class="dashboard">
+
+    <div class="metric">
+        <div class="label">Total Products</div>
+        <div class="value" id="totalProducts">0</div>
+    </div>
+
+    <div class="metric">
+        <div class="label">Stock Units</div>
+        <div class="value" id="totalUnits">0</div>
+    </div>
+
+    <div class="metric">
+        <div class="label">Inventory Value</div>
+        <div class="value" id="inventoryValue">₹0.00</div>
+    </div>
+
+    <div class="metric">
+        <div class="label">Potential Sales Value</div>
+        <div class="value" id="salesValue">₹0.00</div>
+    </div>
+
+</div>
+
+
+<nav class="nav">
+
+    <button class="active" data-section="dashboardSection">
+        Dashboard
+    </button>
+
+    <button data-section="productsSection">
+        Products & Prices
+    </button>
+
+    <button data-section="smartSection">
+        Smart Features
+    </button>
+
+</nav>
+
+
+<section id="dashboardSection" class="card">
+
+    <h2>Inventory Overview</h2>
+
+    <div id="dashboardAlerts"></div>
+
+    <p>
+        Manage products, stock quantities,
+        prices and expiry information.
+    </p>
+
+</section>
+
+
+<!-- PRODUCT MANAGEMENT -->
+
+<section id="productsSection" class="card hidden">
+
+    <h2 id="productFormHeading">Add Product</h2>
+
+    <form id="productForm">
+
+        <input type="hidden" id="editingProductId">
+
+        <div class="form-grid">
+
+            <div class="field">
+                <label>Product Name *</label>
+                <input id="productName" required
+                       placeholder="Product name">
+            </div>
+
+            <div class="field">
+                <label>Barcode / SKU</label>
+                <input id="productBarcode"
+                       placeholder="Barcode">
+            </div>
+
+            <div class="field">
+                <label>Category</label>
+                <input id="productCategory"
+                       placeholder="Category">
+            </div>
+
+            <div class="field">
+                <label>Stock Quantity *</label>
+                <input id="productQuantity"
+                       type="number" min="0"
+                       step="1" value="0" required>
+            </div>
+
+            <div class="field">
+                <label>Minimum Stock Level</label>
+                <input id="minimumStock"
+                       type="number" min="0"
+                       step="1" value="5">
+            </div>
+
+            <div class="field">
+                <label>Purchase Price (₹) *</label>
+                <input id="purchasePrice"
+                       type="number" min="0"
+                       step="0.01" value="0" required>
+            </div>
+
+            <div class="field">
+                <label>Selling Price (₹) *</label>
+                <input id="sellingPrice"
+                       type="number" min="0"
+                       step="0.01" value="0" required>
+            </div>
+
+            <div class="field">
+                <label>Expiry Date</label>
+                <input id="expiryDate" type="date">
+            </div>
+
+            <div class="field">
+                <label>Seasonal Demand</label>
+                <input id="seasonalNote"
+                       placeholder="Summer / Winter / Festival">
+            </div>
+
+        </div>
+
+        <button type="submit" id="saveProductButton">
+            Save Product
+        </button>
+
+        <button type="button"
+                class="secondary hidden"
+                id="cancelEditButton">
+            Cancel Edit
+        </button>
+
+    </form>
+
+
+    <hr style="margin:24px 0">
+
+    <div class="toolbar">
+
+        <h2>Product Inventory</h2>
+
+        <input
+            class="search-input"
+            id="searchProduct"
+            type="search"
+            placeholder="Search name, barcode, category, price or quantity...">
+
+        <button type="button"
+                class="secondary"
+                id="clearSearchButton">
+            Clear Search
+        </button>
+
+    </div>
+
+    <p id="searchSummary" class="small"></p>
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Barcode</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Purchase Price</th>
+                    <th>Selling Price</th>
+                    <th>Stock Value</th>
+                    <th>Expiry</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="productTableBody"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- PART 3 – SMART FEATURES -->
+<!-- ================================= -->
+
+<section id="smartSection" class="card hidden">
+
+    <h2>Smart Features</h2>
+
+    <div class="feature-grid">
+
+        <div class="card">
+
+            <h3>Barcode Scanner</h3>
+
+            <p>Scan or enter product barcode.</p>
+
+            <input id="barcodeSearch"
+                   placeholder="Enter Barcode">
+
+            <br><br>
+
+            <button id="barcodeSearchButton">
+                Find Product
+            </button>
+
+            <div id="barcodeResult"></div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Expiry Date Monitoring</h3>
+
+            <div id="expiryAlerts"></div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Low Stock Alerts</h3>
+
+            <div id="lowStockAlerts"></div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Seasonal Demand Prediction</h3>
+
+            <div id="seasonalAlerts"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+</div>
+
+
+<!-- ================================= -->
+<!-- PART 4 – JAVASCRIPT FUNCTIONS -->
+<!-- ================================= -->
+
+<script>
+
+"use strict";
+
+const $ = id => document.getElementById(id);
+
+const PRODUCT_KEY = "smartstock_products_v2";
+const USER_KEY = "smartstock_users_v2";
+
+
+function readStorage(key, fallback) {
+
+    try {
+
+        const value = JSON.parse(
+            localStorage.getItem(key)
+        );
+
+        return value ?? fallback;
+
+    } catch (error) {
+
+        return fallback;
+
+    }
+
+}
+
+
+let products = readStorage(PRODUCT_KEY, []);
+let users = readStorage(USER_KEY, []);
+
+let loggedInUser = "";
+let createMode = false;
+
+
+function saveProducts() {
+
+    localStorage.setItem(
+        PRODUCT_KEY,
+        JSON.stringify(products)
+    );
+
+}
+
+
+function money(value) {
+
+    return "₹" + Number(value || 0)
+        .toLocaleString("en-IN", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+}
+
+
+function escapeHTML(value) {
+
+    return String(value ?? "").replace(
+        /[&<>"']/g,
+        character => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[character]
+    );
+
+}
+
+
+// =================================
+// 1. LOGIN VERIFICATION
+// 2. CREATE ACCOUNT
+// =================================
+
+$("toggleAuth").addEventListener("click", () => {
+
+    createMode = !createMode;
+
+    $("authHeading").textContent =
+        createMode ? "Create Account" : "Welcome Page";
+
+    $("authDescription").textContent =
+        createMode
+        ? "Register a new account."
+        : "Login to manage your inventory.";
+
+    $("authSubmit").textContent =
+        createMode ? "Create Account" : "Login";
+
+    $("authSwitchText").textContent =
+        createMode ? "Already registered?" : "New user?";
+
+    $("toggleAuth").textContent =
+        createMode ? "Back to Login" : "Create Account";
+
+    $("password").value = "";
+
+});
+
+
+$("authForm").addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const username = $("username").value.trim();
+    const password = $("password").value;
+
+    if (createMode) {
+
+        if (users.some(user =>
+            user.username.toLowerCase() ===
+            username.toLowerCase()
+        )) {
+
+            $("authMessage").textContent =
+                "Username already exists.";
+
+            return;
+
+        }
+
+        users.push({ username, password });
+
+        localStorage.setItem(
+            USER_KEY,
+            JSON.stringify(users)
+        );
+
+        createMode = false;
+
+        $("authHeading").textContent = "Welcome Page";
+        $("authSubmit").textContent = "Login";
+        $("authSwitchText").textContent = "New user?";
+        $("toggleAuth").textContent = "Create Account";
+
+        $("authForm").reset();
+
+        $("authMessage").textContent =
+            "Account created successfully. Please login.";
+
+        return;
+
+    }
+
+
+    let validUser = users.find(user =>
+        user.username === username &&
+        user.password === password
+    );
+
+
+    if (
+        users.length === 0 &&
+        username === "admin" &&
+        password === "admin123"
+    ) {
+
+        users.push({ username, password });
+
+        localStorage.setItem(
+            USER_KEY,
+            JSON.stringify(users)
+        );
+
+        validUser = users[0];
+
+    }
+
+
+    if (!validUser) {
+
+        $("authMessage").textContent =
+            "Incorrect username or password.";
+
+        return;
+
+    }
+
+
+    loggedInUser = username;
+
+    $("loginPage").classList.add("hidden");
+
+    $("application").classList.remove("hidden");
+
+    $("currentUserLabel").textContent =
+        "User: " + loggedInUser;
+
+    refreshAll();
+
+});
+
+
+// =================================
+// 3. ADD PRODUCT
+// 4. SAVE PRODUCT
+// 5. EDIT PRODUCT
+// =================================
+
+$("productForm").addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const id = $("editingProductId").value;
+
+    const product = {
+
+        id: id || (
+            window.crypto && crypto.randomUUID
+            ? crypto.randomUUID()
+            : String(Date.now())
+        ),
+
+        name: $("productName").value.trim(),
+
+        barcode: $("productBarcode").value.trim(),
+
+        category: $("productCategory").value.trim(),
+
+        quantity: Number($("productQuantity").value),
+
+        minimumStock: Number($("minimumStock").value),
+
+        purchasePrice: Number($("purchasePrice").value),
+
+        sellingPrice: Number($("sellingPrice").value),
+
+        expiryDate: $("expiryDate").value,
+
+        seasonalNote: $("seasonalNote").value.trim()
+
+    };
+
+
+    if (
+        !product.name ||
+        !Number.isFinite(product.quantity) ||
+        product.quantity < 0 ||
+        !Number.isFinite(product.minimumStock) ||
+        product.minimumStock < 0 ||
+        !Number.isFinite(product.purchasePrice) ||
+        product.purchasePrice < 0 ||
+        !Number.isFinite(product.sellingPrice) ||
+        product.sellingPrice < 0
+    ) {
+
+        alert("Please enter valid product details.");
+
+        return;
+
+    }
+
+
+    if (
+        product.barcode &&
+        products.some(p =>
+            p.barcode &&
+            p.barcode.toLowerCase() ===
+            product.barcode.toLowerCase() &&
+            p.id !== id
+        )
+    ) {
+
+        alert("This barcode already exists.");
+
+        return;
+
+    }
+
+
+    if (id) {
+
+        products = products.map(p =>
+            p.id === id ? product : p
+        );
+
+        alert("Product updated successfully.");
+
+    } else {
+
+        products.push(product);
+
+        alert("Product saved successfully.");
+
+    }
+
+
+    saveProducts();
+
+    resetProductForm();
+
+    refreshAll();
+
+});
+
+
+// EDIT PRODUCT
+
+function editProduct(id) {
+
+    const p = products.find(product =>
+        product.id === id
+    );
+
+    if (!p) return;
+
+
+    $("editingProductId").value = p.id;
+
+    $("productName").value = p.name;
+
+    $("productBarcode").value = p.barcode;
+
+    $("productCategory").value = p.category;
+
+    $("productQuantity").value = p.quantity;
+
+    $("minimumStock").value = p.minimumStock;
+
+    $("purchasePrice").value = p.purchasePrice;
+
+    $("sellingPrice").value = p.sellingPrice;
+
+    $("expiryDate").value = p.expiryDate;
+
+    $("seasonalNote").value = p.seasonalNote;
+
+
+    $("productFormHeading").textContent =
+        "Edit Product";
+
+    $("saveProductButton").textContent =
+        "Update Product";
+
+    $("cancelEditButton").classList.remove("hidden");
+
+    showSection("productsSection");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+function resetProductForm() {
+
+    $("productForm").reset();
+
+    $("editingProductId").value = "";
+
+    $("productQuantity").value = 0;
+
+    $("minimumStock").value = 5;
+
+    $("purchasePrice").value = 0;
+
+    $("sellingPrice").value = 0;
+
+    $("productFormHeading").textContent =
+        "Add Product";
+
+    $("saveProductButton").textContent =
+        "Save Product";
+
+    $("cancelEditButton").classList.add("hidden");
+
+}
+
+
+$("cancelEditButton").addEventListener(
+    "click",
+    resetProductForm
+);
+
+
+// =================================
+// 6. DELETE PRODUCT
+// =================================
+
+function deleteProduct(id) {
+
+    const product = products.find(p =>
+        p.id === id
+    );
+
+    if (!product) return;
+
+    if (!confirm(
+        "Do you want to delete " + product.name + "?"
+    )) return;
+
+
+    products = products.filter(p =>
+        p.id !== id
+    );
+
+    saveProducts();
+
+    refreshAll();
+
+}
+
+
+// =================================
+// 7. SEARCH PRODUCT
+// =================================
+
+function searchProducts() {
+
+    const query = $("searchProduct")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    if (!query) {
+
+        displayProducts(products);
+
+        return;
+
+    }
+
+
+    const filteredProducts = products.filter(product => {
+
+        const searchableValues = [
+
+            product.name,
+
+            product.barcode,
+
+            product.category,
+
+            product.quantity,
+
+            product.minimumStock,
+
+            product.purchasePrice,
+
+            product.sellingPrice,
+
+            product.expiryDate,
+
+            product.seasonalNote
+
+        ];
+
+
+        return searchableValues.some(value =>
+
+            String(value ?? "")
+                .toLowerCase()
+                .includes(query)
+
+        );
+
+    });
+
+
+    displayProducts(filteredProducts);
+
+}
+
+
+// Search while typing
+
+$("searchProduct").addEventListener(
+    "input",
+    searchProducts
+);
+
+
+// Clear Search
+
+$("clearSearchButton").addEventListener("click", () => {
+
+    $("searchProduct").value = "";
+
+    displayProducts(products);
+
+});
+
+
+// DISPLAY PRODUCT TABLE
+
+function displayProducts(list) {
+
+    const body = $("productTableBody");
+
+    $("searchSummary").textContent =
+        "Showing " + list.length +
+        " of " + products.length + " products.";
+
+
+    if (list.length === 0) {
+
+        body.innerHTML = `
+            <tr>
+                <td colspan="10">
+                    No matching products found.
+                    Try another search or clear the search box.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML = list.map(product => {
+
+        const lowStock =
+            Number(product.quantity) <=
+            Number(product.minimumStock);
+
+        const expiryDays =
+            getExpiryDays(product.expiryDate);
+
+        const expirySoon =
+            expiryDays !== null && expiryDays <= 30;
+
+
+        return `
+
+        <tr>
+
+            <td>
+                <b>${escapeHTML(product.name)}</b>
+            </td>
+
+            <td>
+                ${escapeHTML(product.barcode || "—")}
+            </td>
+
+            <td>
+                ${escapeHTML(product.category || "—")}
+            </td>
+
+            <td>${product.quantity}</td>
+
+            <td>${money(product.purchasePrice)}</td>
+
+            <td>${money(product.sellingPrice)}</td>
+
+            <td>
+                ${money(
+                    product.quantity * product.purchasePrice
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(product.expiryDate || "—")}
+            </td>
+
+            <td>
+
+                ${
+                    lowStock
+                    ? '<span class="pill low">Low Stock</span>'
+                    : '<span class="pill ok">In Stock</span>'
+                }
+
+                ${
+                    expirySoon
+                    ? '<br><span class="pill exp">Expiry Alert</span>'
+                    : ''
+                }
+
+            </td>
+
+            <td>
+
+                <div class="actions">
+
+                    <button
+                        type="button"
+                        class="secondary"
+                        data-action="edit"
+                        data-id="${escapeHTML(product.id)}">
+                        Edit
+                    </button>
+
+                    <button
+                        type="button"
+                        class="danger"
+                        data-action="delete"
+                        data-id="${escapeHTML(product.id)}">
+                        Delete
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    }).join("");
+
+}
+
+
+// Edit and Delete buttons continue working
+// even after searching and filtering.
+
+$("productTableBody").addEventListener(
+    "click",
+    event => {
+
+        const button =
+            event.target.closest("button[data-action]");
+
+        if (!button) return;
+
+        const id = button.dataset.id;
+
+        if (button.dataset.action === "edit") {
+            editProduct(id);
+        }
+
+        if (button.dataset.action === "delete") {
+            deleteProduct(id);
+        }
+
+    }
+);
+
+
+// =================================
+// 8. LOW STOCK ALERT FUNCTION
+// =================================
+
+function getLowStockProducts() {
+
+    return products.filter(p =>
+
+        Number(p.quantity) <=
+        Number(p.minimumStock)
+
+    );
+
+}
+
+
+function renderLowStockAlerts() {
+
+    const lowProducts = getLowStockProducts();
+
+
+    $("lowStockAlerts").innerHTML =
+
+        lowProducts.length
+
+        ? lowProducts.map(p => `
+
+            <div class="alert bad">
+
+                <b>${escapeHTML(p.name)}</b>
+
+                — Only ${p.quantity} units left.
+
+                Minimum stock: ${p.minimumStock}.
+
+            </div>
+
+        `).join("")
+
+        : `
+
+            <div class="alert good">
+
+                No low-stock products.
+                Stock levels are sufficient.
+
+            </div>
+
+        `;
+
+
+    $("dashboardAlerts").innerHTML =
+
+        lowProducts.length
+
+        ? `
+
+            <div class="alert bad">
+
+                Warning: ${lowProducts.length}
+                product(s) need restocking.
+
+            </div>
+
+        `
+
+        : `
+
+            <div class="alert good">
+
+                Inventory stock levels are normal.
+
+            </div>
+
+        `;
+
+}
+
+
+// =================================
+// 9. PRODUCT PRICE CALCULATION
+// =================================
+
+function calculatePrices() {
+
+    let inventoryCost = 0;
+
+    let potentialSales = 0;
+
+
+    products.forEach(p => {
+
+        inventoryCost +=
+            Number(p.quantity) *
+            Number(p.purchasePrice);
+
+        potentialSales +=
+            Number(p.quantity) *
+            Number(p.sellingPrice);
+
+    });
+
+
+    $("inventoryValue").textContent =
+        money(inventoryCost);
+
+    $("salesValue").textContent =
+        money(potentialSales);
+
+}
+
+
+// =================================
+// 10. BARCODE SCANNER
+// =================================
+
+$("barcodeSearchButton").addEventListener(
+    "click",
+    findByBarcode
+);
+
+
+$("barcodeSearch").addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+
+            findByBarcode();
+
+        }
+
+    }
+);
+
+
+function findByBarcode() {
+
+    const code = $("barcodeSearch")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const product = products.find(p =>
+
+        String(p.barcode || "")
+            .trim()
+            .toLowerCase() === code
+
+    );
+
+
+    $("barcodeResult").textContent =
+
+        product
+
+        ? `Product: ${product.name}
+           | Quantity: ${product.quantity}
+           | Selling Price: ${money(product.sellingPrice)}`
+
+        : "Product not found. Check barcode / SKU.";
+
+}
+
+
+// =================================
+// 11. EXPIRY DATE MONITORING
+// =================================
+
+function getExpiryDays(dateString) {
+
+    if (!dateString) return null;
+
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const expiry = new Date(
+        dateString + "T00:00:00"
+    );
+
+    if (Number.isNaN(expiry.getTime())) {
+        return null;
+    }
+
+    return Math.ceil(
+        (expiry - today) / 86400000
+    );
+
+}
+
+
+function renderExpiryAlerts() {
+
+    const expiring = products
+
+        .map(p => ({
+
+            ...p,
+
+            daysLeft: getExpiryDays(p.expiryDate)
+
+        }))
+
+        .filter(p =>
+
+            p.daysLeft !== null &&
+            p.daysLeft <= 30
+
+        )
+
+        .sort((a, b) =>
+
+            a.daysLeft - b.daysLeft
+
+        );
+
+
+    $("expiryAlerts").innerHTML =
+
+        expiring.length
+
+        ? expiring.map(p => {
+
+            const message =
+
+                p.daysLeft < 0
+
+                ? "Expired " +
+                  Math.abs(p.daysLeft) +
+                  " days ago"
+
+                : p.daysLeft === 0
+
+                ? "Expires today"
+
+                : "Expires in " +
+                  p.daysLeft +
+                  " days";
+
+
+            return `
+
+                <div class="alert">
+
+                    <b>${escapeHTML(p.name)}</b>
+
+                    — ${message}
+
+                    (${escapeHTML(p.expiryDate)})
+
+                </div>
+
+            `;
+
+        }).join("")
+
+        : `
+
+            <div class="alert good">
+
+                No products expiring within 30 days.
+
+            </div>
+
+        `;
+
+}
+
+
+// =================================
+// 12. SEASONAL DEMAND PREDICTION
+// =================================
+
+function renderSeasonalSuggestions() {
+
+    const seasonalProducts = products.filter(p =>
+
+        String(p.seasonalNote || "").trim()
+
+    );
+
+
+    $("seasonalAlerts").innerHTML =
+
+        seasonalProducts.length
+
+        ? seasonalProducts.map(p => `
+
+            <div class="alert">
+
+                <b>${escapeHTML(p.name)}</b>
+
+                <br>
+
+                Demand Note:
+                ${escapeHTML(p.seasonalNote)}
+
+                <br>
+
+                Current Stock: ${p.quantity}
+
+                <br>
+
+                Review previous sales before restocking.
+
+            </div>
+
+        `).join("")
+
+        : `
+
+            <p>No seasonal demand notes added.</p>
+
+        `;
+
+}
+
+
+// =================================
+// DASHBOARD CALCULATIONS
+// =================================
+
+function updateDashboard() {
+
+    $("totalProducts").textContent =
+        products.length;
+
+
+    const totalUnits = products.reduce(
+
+        (sum, p) => sum + Number(p.quantity),
+
+        0
+
+    );
+
+
+    $("totalUnits").textContent =
+        totalUnits;
+
+
+    calculatePrices();
+
+}
+
+
+// REFRESH ALL FEATURES
+
+function refreshAll() {
+
+    updateDashboard();
+
+    displayProducts(products);
+
+    renderLowStockAlerts();
+
+    renderExpiryAlerts();
+
+    renderSeasonalSuggestions();
+
+}
+
+
+// =================================
+// NAVIGATION
+// =================================
+
+document.querySelectorAll(".nav button")
+.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        showSection(button.dataset.section);
+
+    });
+
+});
+
+
+function showSection(sectionId) {
+
+    [
+        "dashboardSection",
+        "productsSection",
+        "smartSection"
+    ].forEach(id => {
+
+        $(id).classList.toggle(
+            "hidden",
+            id !== sectionId
+        );
+
+    });
+
+
+    document.querySelectorAll(".nav button")
+    .forEach(button => {
+
+        button.classList.toggle(
+            "active",
+            button.dataset.section === sectionId
+        );
+
+    });
+
+}
+
+
+// =================================
+// 13. LOGOUT
+// =================================
+
+$("logoutButton").addEventListener("click", () => {
+
+    loggedInUser = "";
+
+    $("application").classList.add("hidden");
+
+    $("loginPage").classList.remove("hidden");
+
+    $("authForm").reset();
+
+    $("authMessage").textContent =
+        "You have logged out successfully.";
+
+});
+
+</script>
+
+</body>
+</html>
